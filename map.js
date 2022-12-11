@@ -10,3 +10,10 @@ const double = numbers.map(function (elemento){
 const arrowDouble = numbers.map((elemento) => elemento * 2);
 
 console.log(numbers, double, arrowDouble);
+
+
+const letters =  [ 'a', 'b', 'c', 'd', 'e', 'f'];
+
+const tables = letters.map((i) => `copa_2022_grupo_${i}`);
+console.log(tables);
+
