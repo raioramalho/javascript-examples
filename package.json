@@ -2,7 +2,7 @@
   "name": "do-zero",
   "version": "1.0.0",
   "description": "My node app, clean setup",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "tsx watch index.ts"
   },
