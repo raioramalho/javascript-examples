@@ -1,8 +1,7 @@
-import Item from "./item";
-import TaxItem from "./taxItem";
-import ptMessage from './message/pt';
-import enMessage from './message/en';
-import Message from "./message/message";
+
+import Message from "../message/message";
+import Item from '../items/item';
+import TaxItem from '../items/taxItem';
 
 export default class Order {
   items: Item[];

@@ -1,4 +1,3 @@
-import Item from "./item"
 import TaxItem from "./taxItem";
 
 export default class Soup extends TaxItem {

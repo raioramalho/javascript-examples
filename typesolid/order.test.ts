@@ -1,9 +1,9 @@
 import { expect, test } from "vitest";
-import Item from "./item";
-import Order from "./order";
-import Soup from './soup';
-import Whisky from './whisky';
-import Eletronic from './eletronic';
+import Order from './orders/order';
+import Whisky from './items/whisky';
+import Soup from './items/soup';
+import Eletronic from './items/eletronic';
+import Item from "./items/item";
 
 
 test('Deve criar um pedido e calcular o total', function () {
