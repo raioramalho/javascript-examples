@@ -1,6 +1,7 @@
 SOLID
 
 # 5 - principios
+Mais flexivel, menos rigido, menos fragil, mais facil de manter e evoluiir
 
 1-SRP
 Single Responsibility Principle
