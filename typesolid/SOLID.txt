@@ -1,0 +1,32 @@
+SOLID
+
+# 5 - principios
+
+1-SRP
+Single Responsibility Principle
+Separar coisas que mudam por motivos diferentes.
+Mover responsabilidades.
+
+2-OCP
+Open/Closed Principle
+Devemos estar fechados para modificação e abertos para extenção
+
+3-Liskov Subst Principle
+Se S (Soup, Whisky, Eletronic) é subclass de  T (Item).
+Deve ser possivel substituir instancias de T (Item) por instancias de S, sem quebrar o funcionamento.
+Pré-condicões não podem ser avancadas/fortalecidas.
+
+Deixando de aceitar ENTRADAS que a superclasse considera válida.
+Deixando as saídas diferentes da expectativa de quem está chamando método.
+Aceitando saídas mais AMPLAS.
+
+Invariantes devem se mater consistentes.
+Se uma subclass permitir que o estado conceitual da hierarquia fique inválido, ela quebra.
+
+4-ISP
+Interface segregation Principle
+Cuidado com interfaces muito abrangentes, não obrigue subclasses implementar metodos que nao precisam
+
+5-DIP
+Dependency inversion Principle
+High-level modules nao podem depender de low-level modules
