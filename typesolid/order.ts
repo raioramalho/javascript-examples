@@ -1,10 +1,12 @@
 import Item from "./item";
 import TaxItem from "./taxItem";
+import ptMessage from './message/pt';
+import enMessage from './message/en';
 
 export default class Order {
   items: Item[];
   constructor() {
-    this.items = []
+    this.items = [];
   }
 
   addItem(item: Item) {
@@ -29,8 +31,14 @@ export default class Order {
     return taxes;
   }
 
-  printMessage() {
-    const message = `Obrigado pela comprar o total foi de R$${this.getTotal()}, os impostos de R$${this.getTaxes()}.`;
-    return message;
+  printMessage(language: string) {
+    if (language === "pt") {
+      return ptMessage(this.getTotal(), this.getTaxes())
+
+    }
+    if (language === "en") {
+      return enMessage(this.getTotal(), this.getTaxes())
+    }
+
   }
 }

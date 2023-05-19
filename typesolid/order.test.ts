@@ -39,6 +39,21 @@ test('Deve criar um pedido e imprimir uma mensagem', function () {
   order.addItem(new Item('Water', 'Rio do céu 500ml', 10)); //insento
   order.addItem(new Item('Water', 'Rio do céu 1L', 15)); //insento
   //when
-  const message = order.printMessage();
+  const message = order.printMessage("pt");
   expect(message).toBe('Obrigado pela comprar o total foi de R$1405, os impostos de R$329.');
+});
+
+
+test('Deve criar um pedido e imprimir uma mensagem', function () {
+  //given
+  const order = new Order();
+  order.addItem(new Whisky('Jack Deniels', 180)); //10%
+  order.addItem(new Whisky('Old Par', 100)); //10%
+  order.addItem(new Soup('Dell Vale', 100)); //1%
+  order.addItem(new Eletronic('TV', 1000)) //30%
+  order.addItem(new Item('Water', 'Rio do céu 500ml', 10)); //insento
+
+  //when
+  const message = order.printMessage("en");
+  expect(message).toBe('Thanks for your order, total coast: R$1390, and taxes: R$329.');
 });
