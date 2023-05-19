@@ -5,7 +5,6 @@ import Soup from './items/soup';
 import Eletronic from './items/eletronic';
 import Item from "./items/item";
 
-
 test('Deve criar um pedido e calcular o total', function () {
   //given
   const order = new Order();
@@ -42,7 +41,6 @@ test('Deve criar um pedido e imprimir uma mensagem', function () {
   const message = order.printMessage("pt");
   expect(message).toBe('Obrigado pela comprar o total foi de R$1405, os impostos de R$329.');
 });
-
 
 test('Deve criar um pedido e imprimir uma mensagem', function () {
   //given
