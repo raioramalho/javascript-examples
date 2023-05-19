@@ -2,6 +2,7 @@ import Item from "./item";
 import TaxItem from "./taxItem";
 import ptMessage from './message/pt';
 import enMessage from './message/en';
+import Message from "./message/message";
 
 export default class Order {
   items: Item[];
@@ -32,13 +33,6 @@ export default class Order {
   }
 
   printMessage(language: string) {
-    if (language === "pt") {
-      return ptMessage(this.getTotal(), this.getTaxes())
-
-    }
-    if (language === "en") {
-      return enMessage(this.getTotal(), this.getTaxes())
-    }
-
+    return new Message(language, this.getTotal(), this.getTaxes()).fiscalMessage();
   }
 }
