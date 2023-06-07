@@ -3,6 +3,11 @@ import * as fs from 'fs';
 
 class ImageService {
   async download(url: string, path: string) {
+
+    fs.rm(path, () => {
+      console.log('foi!')
+    });
+
     var sucess = false;
     fetch(url)
       .then((response: any) => {
