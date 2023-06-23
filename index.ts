@@ -7,13 +7,13 @@ class ImageService {
     response.data.pipe(fs.createWriteStream(path));
 
     return new Promise<void>((resolve, reject) => {
-      response.data.on('end', () => {
+      response.data.on('end', (ok) => {
         resolve();
         console.log(`baixou: ${id}`);
       });
 
       response.data.on('error', (err) => {
-        reject(err);
+        console.log(`Não Baixou: ${id}`)
       });
     });
   }
