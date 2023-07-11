@@ -3,7 +3,7 @@ import { Course, Prisma, PrismaClient, User } from '@prisma/client';
 const prisma = new PrismaClient();
 
 
-async function createCourseAndUser(courseData: any, userData: any) {
+async function createCourseAndUser(courseData?: any, userData?: any) {
   const findCourse = await prisma.course.findFirst({
     where: {
       course_name: userData.course_name,
