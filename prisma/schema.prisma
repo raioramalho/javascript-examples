@@ -38,6 +38,8 @@ model Account {
 model Moviment {
   id Int @id @default(autoincrement())
 
+  moviment_type String
+
   OriginAccount Account @relation("OriginAccount", fields: [origin_id], references: [id])
   origin_id     Int
 

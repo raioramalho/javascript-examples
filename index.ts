@@ -17,7 +17,7 @@ const newClient = async (newUser: any) => {
 
     newUser['Account'] = {
       create: {
-        wallet: 100,
+        wallet: 200,
       }
     }
 
@@ -91,6 +91,7 @@ const newMoviment = async (
       origin_id: findOriginAccount.Account.id,
       target_id: findTargetAccount.Account.id,
       amount: amount,
+      moviment_type: "transfer",
     }
 
     const moviment = prisma.moviment.create({
@@ -105,15 +106,17 @@ const newMoviment = async (
 }
 
 // const register = await newClient({
-//   name: 'Beatriz',
+//   name: 'Alan',
 //   lastName: 'Ramalho',
-//   email: 'beatriz.dev@gmail.com',
+//   email: 'ramalho.dev@gmail.com',
 // })
 
+// console.log(register);
+
 const moviment = await newMoviment(
-  "ramalho.sit@gmail.com", // Alan
   "beatriz.dev@gmail.com", // Beatriz
-  80,
+  "ramalho.dev@gmail.com", // Alan
+  125,
 );
 
 console.log(moviment);
