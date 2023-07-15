@@ -121,10 +121,10 @@ const newMoviment = async (
 
 // console.log(register);
 
-const moviment = await newMoviment(
-  "ramalho.dev@gmail.com", // Alan
-  "beatriz.dev@gmail.com", // Beatriz
-  50,
-);
+// const moviment = await newMoviment(
+//   "ramalho.dev@gmail.com", // Alan
+//   "beatriz.dev@gmail.com", // Beatriz
+//   50,
+// );
 
-console.log(moviment);
+// console.log(moviment);
