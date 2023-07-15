@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  lastName String
+  email    String   @unique
+  Account  Account?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Account {
+  id     Int @id @default(autoincrement())
+  wallet Int @default(0)
+
+  User    User @relation(fields: [user_id], references: [id])
+  user_id Int  @unique
+
+  MovementsAsOrigin Moviment[] @relation("OriginAccount")
+  MovementsAsTarget Moviment[] @relation("TargetAccount")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Moviment {
+  id Int @id @default(autoincrement())
+
+  moviment_type String
+
+  OriginAccount Account @relation("OriginAccount", fields: [origin_id], references: [id])
+  origin_id     Int
+
+  TargetAccount Account @relation("TargetAccount", fields: [target_id], references: [id])
+  target_id     Int
+
+  amount Decimal
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
