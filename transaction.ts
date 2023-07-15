@@ -77,6 +77,9 @@ const newMoviment = async (
       },
       data: {
         wallet: findOriginAccount.Account.wallet - amount,
+      },
+      include: {
+        User: true,
       }
     })
 
@@ -86,6 +89,9 @@ const newMoviment = async (
       },
       data: {
         wallet: findTargetAccount.Account.wallet + amount,
+      },
+      include: {
+        User: true,
       }
     });
 
@@ -97,7 +103,7 @@ const newMoviment = async (
     }
 
     const moviment = prisma.moviment.create({
-      data: transfer,
+      data: transfer
     })
 
     return prisma.$transaction([updateOriginAccount, updateTargetAccount, moviment]);
@@ -115,10 +121,10 @@ const newMoviment = async (
 
 // console.log(register);
 
-// const moviment = await newMoviment(
-//   "beatriz.dev@gmail.com", // Beatriz
-//   "ramalho.dev@gmail.com", // Alan
-//   125,
-// );
+const moviment = await newMoviment(
+  "ramalho.dev@gmail.com", // Alan
+  "beatriz.dev@gmail.com", // Beatriz
+  50,
+);
 
-// console.log(moviment);
+console.log(moviment);
