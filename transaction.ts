@@ -2,6 +2,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 console.clear();
+console.log("listing accounts...");
+const accounts = await prisma.user.findMany({
+  include: {
+    Account: true,
+  }
+});
+console.log(accounts);
+
 console.log("start transaction...")
 
 const newClient = async (newUser: any) => {
@@ -76,7 +84,9 @@ const newMoviment = async (
         id: findOriginAccount.Account.id,
       },
       data: {
-        wallet: findOriginAccount.Account.wallet - amount,
+        wallet: {
+          decrement: amount,
+        }
       },
       include: {
         User: true,
@@ -88,7 +98,9 @@ const newMoviment = async (
         id: findTargetAccount.Account.id,
       },
       data: {
-        wallet: findTargetAccount.Account.wallet + amount,
+        wallet: {
+          increment: amount,
+        }
       },
       include: {
         User: true,
@@ -121,10 +133,10 @@ const newMoviment = async (
 
 // console.log(register);
 
-const moviment = await newMoviment(
-  "ramalho.dev@gmail.com", // Alan
-  "beatriz.dev@gmail.com", // Beatriz
-  50,
-);
+// const moviment = await newMoviment(
+//   "beatriz.dev@gmail.com", // Beatriz
+//   "ramalho.dev@gmail.com", // Alan
+//   50,
+// );
 
-console.log(moviment);
+// console.log(moviment);
