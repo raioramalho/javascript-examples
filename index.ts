@@ -1,60 +1,120 @@
-import { Course, Prisma, PrismaClient, User } from '@prisma/client';
+import { PrismaClient, Prisma, User, Account } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+const newClient = async (newUser: any) => {
+  try {
 
-async function createCourseAndUser(courseData?: any, userData?: any) {
-  const findCourse = await prisma.course.findFirst({
-    where: {
-      course_name: userData.course_name,
+    const findUser = await prisma.user.findUnique({
+      where: {
+        email: newUser.email
+      }
+    })
+
+    if (findUser) {
+      throw new Error('Email já cadastrado');
     }
-  });
 
-  if (!findCourse) {
-    const course_name = userData.course_name;
-    delete userData.course_name;
-    const transaction = await prisma.$transaction([
-      prisma.course.create({
-        data: {
-          course_name: course_name,
-          students: {
-            connectOrCreate: {
-              where: {
-                email: userData.email,
-              },
-              create: {
-                name: userData.name,
-                lastName: userData.lastName,
-                email: userData.email,
-              },
-            }
-          }
-        },
-      }),
+    newUser['Account'] = {
+      create: {
+        wallet: 100,
+      }
+    }
 
-    ]);
+    const user = prisma.user.create({
+      data: newUser,
+    });
 
-    return transaction;
+    return prisma.$transaction([user]);
 
-  } else {
-    delete userData.course_name;
-    userData['course_id'] = findCourse?.id;
-
-    const transaction = await prisma.$transaction([
-      prisma.user.create({ data: userData }),
-    ]);
-
-    return transaction;
+  } catch (error: any) {
+    console.log(error.message);
   }
 }
 
-const createCourse = createCourseAndUser(
-  {},
-  {
-    name: 'User4',
-    lastName: 'Student4',
-    email: 'Student4@prisma.',
-    course_name: 'Spring_course',
-    course_id: 0,
+
+const newMoviment = async (
+  origin: string,
+  target: string,
+  amount: number,
+) => {
+  try {
+    const findOriginAccount = await prisma.user.findUnique({
+      where: {
+        email: origin
+      },
+      include: {
+        Account: true,
+      }
+    });
+
+    if (!findOriginAccount) {
+      throw new Error('Conta inexistente');
+    }
+
+    const findTargetAccount = await prisma.user.findUnique({
+      where: {
+        email: target
+      },
+      include: {
+        Account: true,
+      }
+    });
+
+    if (!findTargetAccount) {
+      throw new Error('Conta inexistente');
+    }
+
+    if (findOriginAccount.Account.wallet < amount) {
+      throw new Error('Saldo insuficiente');
+    }
+
+    const updateOriginAccount = prisma.account.update({
+      where: {
+        id: findOriginAccount.Account.id,
+      },
+      data: {
+        wallet: findOriginAccount.Account.wallet - amount,
+      }
+    })
+
+    const updateTargetAccount = prisma.account.update({
+      where: {
+        id: findTargetAccount.Account.id,
+      },
+      data: {
+        wallet: findTargetAccount.Account.wallet + amount,
+      }
+    });
+
+    const transfer = {
+      origin_id: findOriginAccount.Account.id,
+      target_id: findTargetAccount.Account.id,
+      amount: amount,
+    }
+
+    const moviment = prisma.moviment.create({
+      data: transfer,
+    })
+
+    return prisma.$transaction([updateOriginAccount, updateTargetAccount, moviment]);
+
+  } catch (error: any) {
+    console.log(error.message);
   }
+}
+
+// const register = await newClient({
+//   name: 'Beatriz',
+//   lastName: 'Ramalho',
+//   email: 'beatriz.dev@gmail.com',
+// })
+
+const moviment = await newMoviment(
+  "ramalho.sit@gmail.com", // Alan
+  "beatriz.dev@gmail.com", // Beatriz
+  80,
 );
+
+console.log(moviment);
+

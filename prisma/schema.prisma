@@ -11,23 +11,40 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   name     String
   lastName String
-  email    String @unique
-
-  Course    Course? @relation(fields: [course_id], references: [id])
-  course_id Int
+  email    String   @unique
+  Account  Account?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-model Course {
-  id          Int    @id @default(autoincrement())
-  course_name String @unique
+model Account {
+  id     Int @id @default(autoincrement())
+  wallet Int @default(0)
 
-  students User[]
+  User    User @relation(fields: [user_id], references: [id])
+  user_id Int  @unique
+
+  MovementsAsOrigin Moviment[] @relation("OriginAccount")
+  MovementsAsTarget Moviment[] @relation("TargetAccount")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Moviment {
+  id Int @id @default(autoincrement())
+
+  OriginAccount Account @relation("OriginAccount", fields: [origin_id], references: [id])
+  origin_id     Int
+
+  TargetAccount Account @relation("TargetAccount", fields: [target_id], references: [id])
+  target_id     Int
+
+  amount Decimal
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
