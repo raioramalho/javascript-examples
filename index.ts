@@ -1,6 +1,8 @@
-import { PrismaClient, Prisma, User, Account } from '@prisma/client';
-
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
+
+console.clear();
+console.log("start transaction...")
 
 const newClient = async (newUser: any) => {
   try {
@@ -113,11 +115,10 @@ const newMoviment = async (
 
 // console.log(register);
 
-const moviment = await newMoviment(
-  "beatriz.dev@gmail.com", // Beatriz
-  "ramalho.dev@gmail.com", // Alan
-  125,
-);
+// const moviment = await newMoviment(
+//   "beatriz.dev@gmail.com", // Beatriz
+//   "ramalho.dev@gmail.com", // Alan
+//   125,
+// );
 
-console.log(moviment);
-
+// console.log(moviment);
