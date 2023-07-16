@@ -25,6 +25,10 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
       throw new Error('Cliente não encontrado.');
     }
 
+    if (produtos.length <= 0) {
+      throw new Error('Obrigatorio um produto no pedido.');
+    }
+
     const produtosValidos: ProdutoPedido[] = []
 
     for (let index = 0; index < produtos.length; index++) {
@@ -129,17 +133,17 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
 
 
 
-// const teste = await realizaPedido('Maicom',
-//   [
-//     {
-//       produto: 'Café Pilao 1kg',
-//       quantidade: 1,
-//     },
-//     // {
-//     //   produto: 'Filtro de Café 102',
-//     //   quantidade: 2,
-//     // }
-//   ]
-// );
+const teste = await realizaPedido('Maicom',
+  [
+    // {
+    //   produto: 'Café Pilao 1kg',
+    //   quantidade: 1,
+    // },
+    // {
+    //   produto: 'Filtro de Café 102',
+    //   quantidade: 2,
+    // }
+  ]
+);
 
-// console.log(teste);
+console.log(teste);
