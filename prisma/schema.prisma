@@ -17,14 +17,14 @@ model Cliente {
 }
 
 model Produto {
-  id       Int        @id @default(autoincrement())
-  nome     String     @unique
-  valor    Int
-  estoque  Int
-  Carrinho Carrinho[]
+  id           Int            @id @default(autoincrement())
+  nome         String         @unique
+  valor        Int
+  estoque      Int
+  ItemDoPedido ItemDoPedido[]
 }
 
-model Carrinho {
+model ItemDoPedido {
   id         Int      @id @default(autoincrement())
   Pedido     Pedido?  @relation(fields: [pedido_id], references: [id])
   pedido_id  Int?
@@ -35,9 +35,9 @@ model Carrinho {
 }
 
 model Pedido {
-  id          Int        @id @default(autoincrement())
-  Cliente     Cliente    @relation(fields: [cliente_id], references: [id])
-  cliente_id  Int
-  Carrinho    Carrinho[]
-  valor_total Int?
+  id           Int            @id @default(autoincrement())
+  Cliente      Cliente        @relation(fields: [cliente_id], references: [id])
+  cliente_id   Int
+  ItemDoPedido ItemDoPedido[]
+  valor_total  Int?
 }

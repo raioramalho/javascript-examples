@@ -2,6 +2,10 @@ import { Cliente, PrismaClient, Produto } from "@prisma/client"
 
 const prisma = new PrismaClient();
 
+console.log('Listando produtos: ---- > >');
+console.log(await prisma.produto.findMany());
+console.log('---------------- > >')
+
 export class ProdutoPedido {
   produto: any;
   quantidade: number;
@@ -62,12 +66,12 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
     }
 
     for (let index = 0; index < produtosValidos.length; index++) {
-      const atualizaCarrinho = await prisma.pedido.update({
+      const atualizaItemDoPedido = await prisma.pedido.update({
         where: {
           id: pedido.id,
         },
         data: {
-          Carrinho: {
+          ItemDoPedido: {
             create: {
               produto_id: produtosValidos[index].produto.id,
               quantidade: produtosValidos[index].quantidade,
@@ -80,8 +84,8 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
         }
       });
 
-      if (!atualizaCarrinho) {
-        throw new Error('Erro ao atualizar carrinho.');
+      if (!atualizaItemDoPedido) {
+        throw new Error('Erro ao atualizar ItemDoPedido.');
       }
 
       const atualizaEstoque = await prisma.produto.update({
@@ -106,7 +110,7 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
       },
       include: {
         Cliente: true,
-        Carrinho: {
+        ItemDoPedido: {
           select: {
             Produto: true,
             quantidade: true,
@@ -124,16 +128,17 @@ const realizaPedido = async (usuario: string, produtos: ProdutoPedido[]) => {
 }
 
 
-// const teste = await realizaPedido('Ramalho',
+
+// const teste = await realizaPedido('Maicom',
 //   [
-//     // {
-//     //   produto: 'Café Pilao 1kg',
-//     //   quantidade: 1,
-//     // },
 //     {
-//       produto: 'Filtro de Café 102',
+//       produto: 'Café Pilao 1kg',
 //       quantidade: 1,
-//     }
+//     },
+//     // {
+//     //   produto: 'Filtro de Café 102',
+//     //   quantidade: 2,
+//     // }
 //   ]
 // );
 
