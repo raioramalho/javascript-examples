@@ -10,44 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  lastName String
-  email    String   @unique
-  Account  Account?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model Cliente {
+  id      Int      @id @default(autoincrement())
+  nome    String   @unique
+  Pedidos Pedido[]
 }
 
-model Account {
-  id     Int @id @default(autoincrement())
-  wallet Int @default(0)
-
-  User    User @relation(fields: [user_id], references: [id])
-  user_id Int  @unique
-
-  MovementsAsOrigin Moviment[] @relation("OriginAccount")
-  MovementsAsTarget Moviment[] @relation("TargetAccount")
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model Produto {
+  id       Int        @id @default(autoincrement())
+  nome     String     @unique
+  valor    Int
+  estoque  Int
+  Carrinho Carrinho[]
 }
 
-model Moviment {
-  id Int @id @default(autoincrement())
+model Carrinho {
+  id         Int      @id @default(autoincrement())
+  Pedido     Pedido?  @relation(fields: [pedido_id], references: [id])
+  pedido_id  Int?
+  Produto    Produto? @relation(fields: [produto_id], references: [id])
+  produto_id Int?
+  quantidade Int?
+  valor      Int?
+}
 
-  moviment_type String
-
-  OriginAccount Account @relation("OriginAccount", fields: [origin_id], references: [id])
-  origin_id     Int
-
-  TargetAccount Account @relation("TargetAccount", fields: [target_id], references: [id])
-  target_id     Int
-
-  amount Decimal
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model Pedido {
+  id          Int        @id @default(autoincrement())
+  Cliente     Cliente    @relation(fields: [cliente_id], references: [id])
+  cliente_id  Int
+  Carrinho    Carrinho[]
+  valor_total Int?
 }
