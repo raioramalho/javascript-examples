@@ -1,4 +1,4 @@
-class Dev {
+export class Dev {
   private name: string;
   private age: number;
   private tipo: string;
