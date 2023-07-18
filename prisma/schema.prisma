@@ -9,35 +9,3 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
-model Cliente {
-  id      Int      @id @default(autoincrement())
-  nome    String   @unique
-  Pedidos Pedido[]
-}
-
-model Produto {
-  id           Int            @id @default(autoincrement())
-  nome         String         @unique
-  valor        Int
-  estoque      Int
-  ItemDoPedido ItemDoPedido[]
-}
-
-model ItemDoPedido {
-  id         Int      @id @default(autoincrement())
-  Pedido     Pedido?  @relation(fields: [pedido_id], references: [id])
-  pedido_id  Int?
-  Produto    Produto? @relation(fields: [produto_id], references: [id])
-  produto_id Int?
-  quantidade Int?
-  valor      Int?
-}
-
-model Pedido {
-  id           Int            @id @default(autoincrement())
-  Cliente      Cliente        @relation(fields: [cliente_id], references: [id])
-  cliente_id   Int
-  ItemDoPedido ItemDoPedido[]
-  valor_total  Int?
-}
