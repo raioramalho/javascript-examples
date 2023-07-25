@@ -9,3 +9,32 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Lancamentos {
+  ID               Int           @id @default(autoincrement())
+  CODIGO           String
+  TIPO             String
+  DATA_COMPETENCIA DateTime
+  DATA_BAIXA       DateTime
+  VALOR            String
+  CLASSIFICACAO    Classificacao @relation(fields: [CLASS_ID], references: [ID])
+  CLASS_ID         Int
+  SITUACAO         String
+  NATUREZA         Natureza?     @relation(fields: [NATU_ID], references: [ID])
+  NATU_ID          Int?
+}
+
+model Classificacao {
+  ID            Int           @id @default(autoincrement())
+  CLASSIFICACAO String
+  NATUREZA      Natureza[]
+  LANCAMENTOS   Lancamentos[]
+}
+
+model Natureza {
+  ID            Int            @id @default(autoincrement())
+  NATUREZA      String
+  CLASSIFICACAO Classificacao? @relation(fields: [CLASS_ID], references: [ID])
+  CLASS_ID      Int?
+  LANCAMENTOS   Lancamentos[]
+}
