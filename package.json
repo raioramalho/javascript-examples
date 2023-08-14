@@ -27,12 +27,16 @@
   "dependencies": {
     "@prisma/client": "^4.16.2",
     "@sendgrid/mail": "^7.7.0",
+    "@types/axios": "^0.14.0",
     "@types/nodemailer": "^6.4.8",
     "axios": "^1.4.0",
+    "axios-oauth-1.0a": "^0.3.6",
+    "crypto": "^1.0.1",
     "events": "^3.3.0",
     "node-fetch": "^3.3.1",
     "nodemailer": "^6.9.3",
     "vitest": "^0.31.1",
     "zod": "^3.21.4"
-  }
+  },
+  "keywords": []
 }
