@@ -13,7 +13,7 @@ function addOAuthInterceptor(client: any, config: OAuthConfig) {
 }
 
 const WooCommerceAPI = axios.create({
-  baseURL: 'https://loja.dispandovale.com.br/wp-json/wc/v3', // Replace with your store URL
+  baseURL: 'https://lojadispan.thinklife.com.br/wp-json/wc/v3', // Replace with your store URL
 });
 
 addOAuthInterceptor(WooCommerceAPI, {
@@ -24,24 +24,9 @@ addOAuthInterceptor(WooCommerceAPI, {
 
 export async function fetchProducts() {
   try {
-    const response = await WooCommerceAPI.get('/products/20041');
+    const response = await WooCommerceAPI.get('/products/15726');
     return response.data;
   } catch (error: any) {
     console.error('Error fetching products:', error.response.data);
-
   }
 }
-
-
-// import { fetchProducts } from './woocommerce';
-
-// async function main() {
-//   try {
-//     const products = await fetchProducts();
-//     console.log('Products:', products);
-//   } catch (error) {
-//     console.error('Main error:', error);
-//   }
-// }
-
-// main();
