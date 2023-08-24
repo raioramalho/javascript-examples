@@ -1,33 +1,19 @@
-import { PrismaClient, Produtos } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+
+console.log('Starting..');
 
 const prisma = new PrismaClient();
 
-const listarProdutos = async () => {
+
+
+const buscaDados =async () => {
   try {
-    let listaDeProdutos: Produtos[] = [];
+    // const dados = await prisma.lancamentos.findMany();
+    const dados = true;
 
-    const produtos = await prisma.produtos.findMany({
-      include: {
-        estoques: true,
-      }
-    });
-
-    produtos.forEach((produtos) => {
-      const totalEstoque = produtos.estoques.reduce(
-        (index, estoque) => index + estoque.estoque,
-        0
-      )
-      produtos.estoque = totalEstoque;
-      listaDeProdutos.push(produtos);
-    });
-
-    console.log(produtos);
   } catch (error) {
-    console.log(error);
+    console.log('Erro do catch');
   }
 }
 
-
-listarProdutos();
-
-
+buscaDados();

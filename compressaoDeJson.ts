@@ -26,22 +26,22 @@ try {
   console.log(`JSON entrada: ${produtos.length}`);
 
 
-  zlib.gzip(JSON.stringify(produtos), (error, compressedData) => {
+  zlib.gzip(JSON.sstringify(produtos), (error, compressedData) => {
     if (error) {
       console.error('Erro ao compactar o JSON:', error);
     } else {
       // fs.writeFileSync('produtos_comprimidos.json.gz', compressedData);
       console.log(`JSON comprimido e salvo com sucesso: BYTE => ${compressedData.byteLength}`);
 
-      zlib.gunzip(compressedData, (error, decompressedBuffer) => {
-        if (error) {
-          console.error('Erro ao descomprimir o JSON:', error);
-        } else {
-          const decompressedJsonString = decompressedBuffer.toString();
-          const decompressedJson = JSON.parse(decompressedJsonString);
-          console.log('JSON descomprimido:', decompressedJson.length);
-        }
-      });
+      // zlib.gunzip(compressedData, (error, decompressedBuffer) => {
+      //   if (error) {
+      //     console.error('Erro ao descomprimir o JSON:', error);
+      //   } else {
+      //     const decompressedJsonString = decompressedBuffer.toString();
+      //     const decompressedJson = JSON.parse(decompressedJsonString);
+      //     console.log('JSON descomprimido:', decompressedJson.length);
+      //   }
+      // });
 
     }
   });
