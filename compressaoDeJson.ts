@@ -1,55 +1,36 @@
-import * as zlib from 'zlib';
+import { BSON } from "bson";
+import { deflate, inflate } from "pako";
 import * as fs from 'fs';
-import { buffer } from 'stream/consumers';
 
+const calculo = async () => {
+  const dados = await fs.readFileSync('produtos.json', 'utf8');
+  const objeto = JSON.parse(dados.toString());
+  // Serialize o objeto para BSON
+  const objetoSerializado = BSON.serialize({ lista: objeto });
 
-console.log(`Starting..`)
+  // Agora, objetoSerializado contém a representação binária do objeto
+  // console.log('OBJETO EM BINÁRIO:', objetoSerializado);
+  console.log('TAMANHO EM BYTES (BSON):', objetoSerializado.byteLength);
 
+  // Você também pode desserializar para obter o objeto de volta
+  const objetoDesserializado: Object = BSON.deserialize(objetoSerializado);
+  // console.log('OBJETO EM JSON (BSON):', JSON.stringify(objetoDesserializado));
+  console.log('TAMANHO EM BYTES (JSON após desserialização):', new TextEncoder().encode(JSON.stringify(objetoDesserializado)).byteLength);
 
-try {
-  const filePath = './produtos.json'; // Substitua pelo caminho correto
-  const rawData = fs.readFileSync(filePath, 'utf-8');
-  const jsonData = JSON.parse(rawData);
+  // Dados comprimidos serializados (BSON)
+  const objetoComprimidoBSON = deflate(objetoSerializado);
+  console.log(objetoComprimidoBSON);
+  // console.log(`BINÁRIO antes da compressão (BSON): ${objetoSerializado.byteLength} bytes`);
+  console.log(`BINÁRIO após a compressão (BSON): ${objetoComprimidoBSON?.byteLength} bytes`);
 
-  console.log(`Bytelen do arquivo: BYTE => ${fs.statSync(filePath).size}`)
+  // Dados comprimidos em JSON
+  const objetoComprimidoJSON = deflate(JSON.stringify(objeto));
+  // console.log(objetoComprimidoJSON);
+  console.log('OBJETO EM JSON comprimido:', objetoComprimidoJSON?.byteLength);
 
-  let qtdProdutos = 0;
-  let produtos: any[] = [];
-
-  for (let index = 0; index < jsonData.length; index++) {
-    // console.log(`contando: ${jsonData[index].PRODUTO} - produto de numero ${index}`);
-    produtos.push(jsonData[index]);
-    qtdProdutos += index;
-  }
-
-  // console.log(produtos);
-  console.log(`JSON entrada: ${produtos.length}`);
-
-
-  zlib.gzip(JSON.sstringify(produtos), (error, compressedData) => {
-    if (error) {
-      console.error('Erro ao compactar o JSON:', error);
-    } else {
-      // fs.writeFileSync('produtos_comprimidos.json.gz', compressedData);
-      console.log(`JSON comprimido e salvo com sucesso: BYTE => ${compressedData.byteLength}`);
-
-      // zlib.gunzip(compressedData, (error, decompressedBuffer) => {
-      //   if (error) {
-      //     console.error('Erro ao descomprimir o JSON:', error);
-      //   } else {
-      //     const decompressedJsonString = decompressedBuffer.toString();
-      //     const decompressedJson = JSON.parse(decompressedJsonString);
-      //     console.log('JSON descomprimido:', decompressedJson.length);
-      //   }
-      // });
-
-    }
-  });
-
-
-
-
-
-} catch (error) {
-  console.error('Erro ao ler o arquivo JSON:', error);
+  // Descomprimir dados JSON
+  // const objetoDescomprimidoJSON = inflate(objetoComprimidoJSON, { to: 'string' });
+  // console.log('DESCOMPRIMINDO OBJETO EM JSON:', objetoDescomprimidoJSON);
 }
+
+calculo();

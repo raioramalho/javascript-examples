@@ -1,19 +1,24 @@
-import { PrismaClient } from "@prisma/client";
+import { DataCompressor } from "./classeCompressao"
 
-console.log('Starting..');
-
-const prisma = new PrismaClient();
+console.log('Starting..')
 
 
+const compressTool = new DataCompressor();
 
-const buscaDados =async () => {
-  try {
-    // const dados = await prisma.lancamentos.findMany();
-    const dados = true;
 
-  } catch (error) {
-    console.log('Erro do catch');
+const test = () => {
+  const obj = {
+    CODPROD: 1,
+    PRODUTO: 'Mouse',
+    FABRICANTE: 'Asus',
+    PRECO: 20,
   }
+
+  const comp = DataCompressor.getSmallest(obj);
+  console.log(comp.format);
+  console.log(obj)
+  console.log(comp.smallestData);
+  console.log(DataCompressor.decompressWithBSON(comp.smallestData).decompressedData);
 }
 
-buscaDados();
+test();
