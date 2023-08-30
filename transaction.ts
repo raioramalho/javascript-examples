@@ -125,18 +125,4 @@ const newMoviment = async (
   }
 }
 
-// const register = await newClient({
-//   name: 'Alan',
-//   lastName: 'Ramalho',
-//   email: 'ramalho.dev@gmail.com',
-// })
 
-// console.log(register);
-
-// const moviment = await newMoviment(
-//   "beatriz.dev@gmail.com", // Beatriz
-//   "ramalho.dev@gmail.com", // Alan
-//   50,
-// );
-
-// console.log(moviment);
