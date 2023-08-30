@@ -1,1 +1,1 @@
-console.log("Starting.. with update em, só isso todas as maquinas!!!!!!!");
+console.log("Starting..");
