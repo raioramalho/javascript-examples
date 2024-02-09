@@ -7,42 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Aluno {
-  id          Int          @id @default(autoincrement())
-  nome        String
-  emprestimos Emprestimo[]
-}
 
-model Colaborador {
-  id   Int    @id @default(autoincrement())
-  nome String
-
-  emprestimos Emprestimo[]
-}
-
-model Livro {
-  id                 Int                  @id @default(autoincrement())
-  livro              String
-  LivrosDoEmprestimo LivrosDoEmprestimo[]
-}
-
-model LivrosDoEmprestimo {
-  id           Int        @id @default(autoincrement())
-  emprestimo   Emprestimo @relation(fields: [emprestimoId], references: [id])
-  emprestimoId Int
-
-  livro   Livro @relation(fields: [livroId], references: [id])
-  livroId Int
-}
-
-model Emprestimo {
-  id Int @id @default(autoincrement())
-
-  Aluno   Aluno? @relation(fields: [alunoId], references: [id])
-  alunoId Int?
-
-  Colaborador   Colaborador? @relation(fields: [colaboradorId], references: [id])
-  colaboradorId Int?
-
-  LivrosDoEmprestimo LivrosDoEmprestimo[]
+model Produto {
+  Id         Int      @id @default(autoincrement())
+  Uuid       String   @unique @default(uuid())
+  Produto    String
+  Fabricante String
+  Test       Boolean? @default(false)
+  CreatedAt  DateTime @default(now())
+  UpdatedAt  DateTime @updatedAt
 }
