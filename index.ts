@@ -1,28 +1,57 @@
-import { Prisma, PrismaClient, Produto } from "@prisma/client";
-import axios from "axios";
-import { createWriteStream } from 'fs';
 console.clear();
 console.log('Starting..')
 
 const main = async () => {
 
-  let reqs: any[] = []
-
-  try {
-    const req1 = await axios.get('https://cep.awesomeapi.com.br/json/25041390');
-    reqs.push({ REQ1: req1.data });
-  } catch (error) {
-    reqs.push({ REQ1: { error: error.response.data.message } });
+  const data = {
+    CODCLI: 22,
+    OBSERVACAO: "Pedido de teste - com 2 produtos",
+    DESCONTO: 0,
+    PRODUTOS: [
+      {
+        QTD: 2,
+        VLRUNIT: 61.77,
+        CODTABPREC: 1,
+        CODPROD: 58
+      },
+      {
+        QTD: 2,
+        VLRUNIT: 61.77,
+        CODTABPREC: 1,
+        CODPROD: 58
+      }
+    ]
   }
 
-  try {
-    const req2 = await axios.get('https://cep.awesomeapi.com.br/json/20521100000');
-    reqs.push({ REQ2: req2.data });
-  } catch (error) {
-    reqs.push({ REQ2: { error: error.response.data.message } });
+
+
+  let itens: any[] = [];
+
+  itens.length
+
+  for (let produto of data.PRODUTOS) {
+    let item = {
+      CODPROD: produto.CODPROD,
+      CODTABPREC: produto.CODTABPREC,
+      QTD: produto.QTD,
+      VLRVENDA: produto.VLRUNIT,
+      VALORUNIT: produto.VLRUNIT
+    }
+    itens.push(item);
   }
 
-  console.log(JSON.stringify(reqs))
+  const dataSales = {
+    INTEGRACAO: "true",
+    CODEMP: 1,
+    CODVEND: 1,
+    CODTIPNEG: 17,
+    CODTRANS: 1,
+    ORCAMENTO: false,
+    ItensPedido: itens
+  }
+
+  console.log(dataSales)
+
 
 
 };
