@@ -1,59 +1,38 @@
-console.clear();
-console.log('Starting..')
+import * as fs from 'fs';
+import sharp from 'sharp';
 
-const main = async () => {
 
-  const data = {
-    CODCLI: 22,
-    OBSERVACAO: "Pedido de teste - com 2 produtos",
-    DESCONTO: 0,
-    PRODUTOS: [
-      {
-        QTD: 2,
-        VLRUNIT: 61.77,
-        CODTABPREC: 1,
-        CODPROD: 58
-      },
-      {
-        QTD: 2,
-        VLRUNIT: 61.77,
-        CODTABPREC: 1,
-        CODPROD: 58
-      }
-    ]
+console.clear()
+
+function main() {
+
+  console.log('starting..')
+
+  let path = 'capetinha.png';
+
+  let exist = fs.existsSync(`./public/${path}`);
+
+  if (exist) {
+    console.log(`processando arquivo`)
+    fs.mkdir(`./public/processado`, (res) => {
+      console.log(res)
+    });
+    sharp(`./public/${path}`)
+      .resize(1366, 768)
+      .toFile(`./public/processado/${path}`, (err, info) => {
+        if (info) {
+          console.log(`Sucesss`)
+          console.log(info)
+        } else {
+          console.log(err)
+        }
+
+      })
+
+  } else {
+    console.log(`arquivo nao encontrado`)
   }
 
+}
 
-
-  let itens: any[] = [];
-
-  itens.length
-
-  for (let produto of data.PRODUTOS) {
-    let item = {
-      CODPROD: produto.CODPROD,
-      CODTABPREC: produto.CODTABPREC,
-      QTD: produto.QTD,
-      VLRVENDA: produto.VLRUNIT,
-      VALORUNIT: produto.VLRUNIT
-    }
-    itens.push(item);
-  }
-
-  const dataSales = {
-    INTEGRACAO: "true",
-    CODEMP: 1,
-    CODVEND: 1,
-    CODTIPNEG: 17,
-    CODTRANS: 1,
-    ORCAMENTO: false,
-    ItensPedido: itens
-  }
-
-  console.log(dataSales)
-
-
-
-};
-
-main();
+main()
