@@ -1,5 +1,5 @@
-const cron = require('node-cron');
-const { exec } = require('child_process');
+import { exec } from "child_process";
+import { cron } from "node-cron";
 
 // Esta função será executada a cada minuto
 cron.schedule('* * * * *', () => {
