@@ -7,6 +7,7 @@
   "scripts": {
     "start": "tsx watch index.ts",
     "start2": "tsx watch index2.ts",
+    "start3": "tsx watch index3.ts",
     "cliente": "tsx watch cliente.ts",
     "server": "tsx watch server.ts"
   },

@@ -1,3 +1,8 @@
+interface Coordenada {
+  lat: number;
+  lon: number;
+}
+
 export class LocalizacaoService {
     private grausParaRadianos(graus: number): number {
       return graus * Math.PI / 180;
@@ -32,29 +37,3 @@ export class LocalizacaoService {
       return pontoMaisProximo;
     }
   }
-  
-
-interface Coordenada {
-    lat: number;
-    lon: number;
-  }
-  
-//   // Exemplo de uso:
-//   const latAtual = 	-22.929373; // Sua latitude atual
-//   const lonAtual = -43.229188; // Sua longitude atual
-  
-//   const pontos: Coordenada[] = [
-//     { lat: -23.5505, lon: -46.6333 }, // São Paulo
-//     { lat: -22.9035, lon: -47.0588 }, // Campinas
-//     { lat: -22.7577, lon: -41.8819 }  // Cabo Frio
-//   ];
-  
-//   const localizacaoService = new LocalizacaoService();
-//   const pontoMaisProximo = localizacaoService.encontrarPontoMaisProximo(latAtual, lonAtual, pontos);
-  
-//   if (pontoMaisProximo) {
-//     console.log(`O ponto mais próximo está em lat: ${pontoMaisProximo.lat}, lon: ${pontoMaisProximo.lon}`);
-//   } else {
-//     console.log('A lista de pontos está vazia.');
-//   }
-  
