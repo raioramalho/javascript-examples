@@ -25,14 +25,14 @@ const main = async () => {
     }
   ]
 
-  let select = estoque.filter((estoque) => estoque.codprod === 2);
+  let select = estoque.filter((item) => item.codprod === 2);
 
-  let calc = select.reduce((before, after) => {
+  let calc = select.reduce((acc, curr) => {
     return {
-      ...after,
-      estoque: before.estoque +after.estoque
+      codprod: curr.codprod,
+      estoque: acc.estoque + curr.estoque
     }
-  })
+  }, { codprod: 2, estoque: 0 });
 
   console.log(JSON.stringify(calc))
 

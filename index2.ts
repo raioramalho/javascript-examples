@@ -41,7 +41,7 @@ interface Coordenada {
 }
 
 // Exemplo de uso:
-const latAtual = 	-22.929373; // Sua latitude atual
+const latAtual = -22.929373; // Sua latitude atual
 const lonAtual = -43.229188; // Sua longitude atual
 
 const pontos: Coordenada[] = [

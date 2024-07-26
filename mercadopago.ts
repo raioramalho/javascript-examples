@@ -55,3 +55,15 @@ async function main() {
 }
 
 main();
+
+// Pontuação do código:
+// Profissionalismo: 8/10
+// - Boa estrutura e organização do código
+// - Uso adequado de interfaces e tipos
+// - Tratamento de erros implementado
+// - Poderia melhorar com comentários explicativos 
+// Agilidade/Performance: 7/10
+// - Uso de async/await para operações assíncronas
+// - Fetch API utilizada de forma eficiente
+// - Poderia melhorar com cache de resultados para CEPs já consultados
+// - Considerar uso de timeout para a requisição fetch

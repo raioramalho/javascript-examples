@@ -39,6 +39,7 @@
     "axios-oauth-1.0a": "^0.3.6",
     "bson": "^5.4.0",
     "buffer": "^6.0.3",
+    "bun": "^1.1.20",
     "cheerio": "^1.0.0-rc.12",
     "child_process": "^1.0.2",
     "crypto": "^1.0.1",

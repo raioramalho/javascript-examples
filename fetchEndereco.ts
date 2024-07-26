@@ -39,15 +39,37 @@ async function main() {
 
 main();
 
-// Pontuação do código:
-// Profissionalismo: 8/10
-// - Boa estrutura e organização do código
-// - Uso adequado de interfaces e tipos
-// - Tratamento de erros implementado
-// - Poderia melhorar com comentários explicativos
-
-// Agilidade/Performance: 7/10
-// - Uso de async/await para operações assíncronas
-// - Fetch API utilizada de forma eficiente
-// - Poderia melhorar com cache de resultados para CEPs já consultados
-// - Considerar uso de timeout para a requisição fetch  - COLOQUEI DEPOIS DE GERAR A PONTUACAO!
+// Análise e pontuação do código:
+// 
+// Profissionalismo:
+// Estrutura e organização do código: 8/10
+// - O código está bem estruturado, com funções e interfaces claramente definidas.
+// - Poderia ser melhorado com a separação em módulos e uso de constantes para strings fixas.
+// 
+// Uso de interfaces e tipos: 7/10
+// - A interface Endereco está bem definida.
+// - Poderia ser melhorado com o uso de tipos mais específicos para erros.
+// 
+// Tratamento de erros: 6/10
+// - Há tratamento básico de erros com try/catch.
+// - Poderia ser melhorado com tratamento mais específico de diferentes tipos de erros.
+// 
+// Comentários e documentação: 3/10
+// - Faltam comentários explicativos e documentação das funções.
+// 
+// Agilidade/Performance:
+// Uso de async/await: 9/10
+// - Uso correto e consistente de async/await.
+// 
+// Eficiência nas operações assíncronas: 8/10
+// - Bom uso de fetch com timeout.
+// - Poderia ser melhorado com cancelamento de requisições desnecessárias.
+// 
+// Implementação de cache: 0/10
+// - Não há implementação de cache, o que poderia melhorar significativamente a performance para CEPs frequentemente consultados.
+// 
+// Outras otimizações de performance: 5/10
+// - O uso de AbortSignal.timeout é uma boa prática.
+// - Poderia ser melhorado com validação do CEP antes da requisição e uso de memoização.
+// 
+// Pontuação total: 46/80
