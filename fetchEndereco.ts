@@ -1,53 +1,53 @@
-// Limpa o console
 console.clear();
-// Exibe mensagem de início
 console.log('-');
 
-// Define a interface Endereco
 interface Endereco {
     cep: string;
     address_type: string;
     address_name: string;
 }
 
-// Define a URL base para a API de CEP
-const baseUrl = 'https://cep.awesomeapi.com.br/json';
+const BASE_URL = 'https://cep.awesomeapi.com.br/json';
 
-// Função assíncrona para buscar endereço a partir do CEP
-async function buscaEndereco(cep: string): Promise<Endereco | Error> {
+async function fetchEndereco(cep: string): Promise<Endereco | Error> {
     try {
-        // Faz a requisição para a API
-        const response = await fetch(`${baseUrl}/${cep}`, {
+        const response = await fetch(`${BASE_URL}/${cep}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            signal: AbortSignal.timeout(600),
         });
     
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
             throw new Error(`HTTP error! message:'${response.statusText}' status:'${response.status}'`,);
         }
     
-        // Converte a resposta para JSON
         let endereco = await response.json();
-        // Retorna o endereço ou um erro se não for encontrado
         return endereco ? endereco as Endereco : new Error('CEP não encontrado');
-    } catch (error) {
-        // Loga o erro e o retorna
-        console.error(error);
+    } catch (error) {    
+        console.log(error);
         return error;
     }
 }
 
-// Função principal assíncrona
-async function run() {    
-        // Busca o endereço para o CEP '20521100'
-        const endereco = await buscaEndereco('20521100');     
-        // Exibe o resultado no console
-        console.log('fetchEndereco.ts:');
-        console.log(endereco);
+async function main() {            
+    const endereco = await fetchEndereco('205211000');     
+    console.log('fetchEndereco.ts:');
+    endereco  instanceof Error ? console.log({message:endereco.message, name:endereco.name}) : console.log(endereco);     
 }
 
-// Executa a função principal
-run();
+main();
+
+// Pontuação do código:
+// Profissionalismo: 8/10
+// - Boa estrutura e organização do código
+// - Uso adequado de interfaces e tipos
+// - Tratamento de erros implementado
+// - Poderia melhorar com comentários explicativos
+
+// Agilidade/Performance: 7/10
+// - Uso de async/await para operações assíncronas
+// - Fetch API utilizada de forma eficiente
+// - Poderia melhorar com cache de resultados para CEPs já consultados
+// - Considerar uso de timeout para a requisição fetch  - COLOQUEI DEPOIS DE GERAR A PONTUACAO!
